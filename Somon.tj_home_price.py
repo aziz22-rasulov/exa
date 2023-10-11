@@ -7,7 +7,7 @@ import streamlit as st
 from PIL import Image
 
 
-pickle_in = open("Somon.tj_home_price.pkl","wb")
+pickle_in = open("Home_price.pkl","rb")
 classifier=pickle.load(pickle_in)
 
 
@@ -44,9 +44,9 @@ def main():
     elif m=="Новостройка":
         market_code=0
 
-    rooms = st.text_input("rooms","")
-    floor = st.text_input("floor","")
-    area = st.text_input("area","")
+    rooms = st.number_input('rooms', step=1, value=1)
+    floor = st.number_input('floor', step=1, value=1)
+    area = st.number_input('area', step=1, value=15)
     
     r = st.radio("Remodel",
                  key="Remodel",
@@ -60,7 +60,7 @@ def main():
 
     result=""
     if st.button("Predict"):
-        result=int(predict_note_authentication(market_code, rooms, floor, area, remodel_code))
+        result=(predict_note_authentication(market_code, rooms, floor, area, remodel_code))
 
 
     #st.success('The output is {}'.format(result))
